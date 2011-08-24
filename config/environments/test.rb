@@ -1,3 +1,6 @@
+DB = Sequel.connect('postgres://localhost/pair_development')
+REDIS = Redis::Namespace.new(:pair_test, :redis => Redis.new)
+
 Pair::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -36,4 +39,8 @@ Pair::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+end
+
+Mongoid.configure do |config|
+  config.autocreate_indexes = true
 end

@@ -15,6 +15,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+CONSTANTS = Hash.new do |h,k|
+  h[k] = k.constantize
+end
+
 module Pair
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -48,4 +52,9 @@ module Pair
     # Enable the asset pipeline
     config.assets.enabled = true
   end
+
+end
+
+Mongoid.configure do |config|
+  config.allow_dynamic_fields = false
 end

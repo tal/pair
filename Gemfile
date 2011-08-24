@@ -25,9 +25,19 @@ gem 'unicorn'
 
 group :development do
   gem 'heroku'
+  gem 'looksee'
+  gem 'wirb'
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
+group :test, :development do
+  gem "rspec-rails", "~> 2.6"
+end
+
+gem 'uuidtools'
 gem 'pg'
 gem 'sequel'
 gem 'redis'
+gem 'redis-namespace'
+gem "mongoid", "~> 2.1"
+gem "bson_ext", "~> 1.3"
