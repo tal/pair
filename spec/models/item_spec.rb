@@ -41,7 +41,6 @@ describe Item do
     TestOneItem.item_pair_set.should_not be_empty
     TestOneItem.item_pair_set.should =~ TestOneItem.generate_item_pair_set
     TestOneItem.create! value: 'third'
-    TestOneItem.item_pair_set.should_not =~ TestOneItem.generate_item_pair_set
     TestOneItem.update_item_pair_set
     TestOneItem.item_pair_set.should =~ TestOneItem.generate_item_pair_set
   end

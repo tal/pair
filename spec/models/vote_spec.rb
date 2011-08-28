@@ -59,8 +59,12 @@ describe Vote do
 
   context "picking" do
     before do
-      @v.winner_id = nil
-      @v.save
+      @v = Vote.new
+      @v.user = User.new
+      @v.item_type = @i1['_type']
+      @vi1 = @v.vote_items.build(id: @i1._id)
+      @vi2 = @v.vote_items.build(id: @i2._id)
+      @v.save!
     end
 
     it "should get the winner" do
@@ -81,8 +85,66 @@ describe Vote do
       @v.winner.should == @i2
     end
 
+    it "should increment the counter when picked" do
+      expect { @v.picked!(@i2) }.to change{@ig.item_class.find(@i2.id).vote_count}.by(1)
+    end
+
+    it "should increment the counter when picked" do
+      expect { @v.picked!(@i2) }.to change{@ig.item_class.find(@i1.id).vote_count}.by(1)
+    end
+
+    it "should increment the counter when picked" do
+      expect { @v.picked!(@i2) }.to change{@ig.item_class.find(@i2.id).up_votes}.by(1)
+    end
+
+    it "should increment the counter when picked" do
+      expect { @v.picked!(@i2) }.to_not change{@ig.item_class.find(@i2.id).down_votes}
+    end
+
+    it "should increment the counter when picked" do
+      expect { @v.picked!(@i2) }.to_not change{@ig.item_class.find(@i1.id).up_votes}
+    end
+
+    it "should increment the counter when picked" do
+      expect { @v.picked!(@i2) }.to change{@ig.item_class.find(@i1.id).down_votes}.by(1)
+    end
+
+    context "skipping" do
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to change{@ig.item_class.find(@i1.id).vote_count}.by(1)
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to change{@ig.item_class.find(@i2.id).vote_count}.by(1)
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to change{@ig.item_class.find(@i1.id).skips}.by(1)
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to change{@ig.item_class.find(@i2.id).skips}.by(1)
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to_not change{@ig.item_class.find(@i1.id).up_votes}
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to_not change{@ig.item_class.find(@i1.id).down_votes}
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to_not change{@ig.item_class.find(@i2.id).up_votes}
+      end
+
+      it "should increment the counter when picked" do
+        expect { @v.skip! }.to_not change{@ig.item_class.find(@i2.id).down_votes}
+      end
+    end
+
     it "should fail if item isnt there" do
-      @v.picked!(@i2.id+10).should be nil
+      @v.picked!(@i2.id+10).should be false
       @v.winner.should be nil
     end
   end

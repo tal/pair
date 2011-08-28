@@ -26,6 +26,10 @@ describe User do
       @user.get_vote(@ig.key).should == @v
     end
 
+    it "should find vote" do
+      @user.find_vote(@i1,@i2).should == @v
+    end
+
   end
 
   context "#get_or_create_vote" do
@@ -50,7 +54,7 @@ describe User do
     it "should foo" do
       ItemGroup.create!(key: "asdfasdfasfd")
       v = @user.get_or_create_vote('asdfasdfasfd')
-      puts v.inspect
+      v.should == nil
     end
 
   end

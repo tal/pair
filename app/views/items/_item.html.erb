@@ -1,0 +1,20 @@
+<div class="item">
+  <div class="body">
+    <%= item.value %>
+  </div>
+  <div class="vote_box">
+    <% if @vote && @vote == @current_vote %>
+      <% if @vote.completed? %>
+        <% if @vote.winner_id == item.id %>
+          You voted for me
+        <% elsif @vote.skipped %>
+          Skipped
+        <% else %>
+          You didn't vote for me
+        <% end %>
+      <% else %>
+        <a class="vote_action" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @current_vote.item1, item2: @current_vote.item2, choose: item.id) %>">Vote!</a>
+      <% end %>
+    <% end %>
+  </div>
+</div>

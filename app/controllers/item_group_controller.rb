@@ -4,7 +4,6 @@ class ItemGroupController < ApplicationController
   private
 
   def get_item_group
-    logger.fatal request.class.class
     @item_group = ItemGroup[params[:group_key]]
 
     redirect_to(:root) unless @item_group

@@ -16,6 +16,10 @@ class Item
   belongs_to :user
 
   has_many :votes, as: :votable
+
+  after_create do
+    self.class.update_item_pair_set
+  end
   
   def score
     up_votes/vote_count.to_f
@@ -42,7 +46,7 @@ private
     end
 
     def model_name
-      ActiveModel::Name.new(Item)
+      @_model_name ||= ActiveModel::Name.new(Item)
     end
 
     attr_reader :item_group_key

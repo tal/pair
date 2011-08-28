@@ -1,4 +1,5 @@
-<%= form_for(@item, as: :item, url: items_path(id: @item.id, group_key: @item.group_key) ) do |f| %>
+<%= form_for(@item, as: :item, url: items_path(group_key: @item.group_key) ) do |f| %>
+asdfas
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>

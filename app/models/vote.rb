@@ -9,30 +9,40 @@ class Vote
 
   embeds_many :vote_items
 
+  validate do
+    errors.add(:vote_items, 'must have two items') if items.size != 2
+    if user && user.current_vote[item_type]
+      errors.add(:user_has_vote, "user already has a vote for this type")
+    end
+
+    if winner_id && !item_ids.include?(winner_id)
+      errors.add(:winner_id, 'winner must be one of the items')
+    end
+  end
+  validates_presence_of :user
+
+  after_save :set_for_user, :update_item_values
+  after_validation do
+    @winner_id_changed = winner_id_changed?
+    @skipped_changed = skipped_changed?
+  end
+
   def picked item
     if item.is_a?(Item) || item.is_a?(VoteItem)
       item = item.id
     end
 
-    if item_ids.include?(item)
-      self.winner_id = item
-    else
-      false
-    end
+    self.winner_id = item
   end
-
-  validate do
-    errors.add(:invalid_number_of_items, 'must have two items') if items.size != 2
-    if user && user.current_vote[item_type]
-      errors.add(:user_has_vote, "user already has a vote for this type")
-    end
-  end
-  validates_presence_of :user
-
-  after_save :set_for_user
 
   def picked! item
-    save if picked(item)
+    picked(item)
+    save
+  end
+
+  def skip!
+    self.skipped = true
+    save
   end
 
   def winner
@@ -43,6 +53,10 @@ class Vote
 
   def won?
     !winner_id.nil?
+  end
+
+  def skipped?
+    skipped
   end
 
   def completed?
@@ -62,8 +76,20 @@ class Vote
   end
 
   def set_for_user
-    user.current_vote[item_class.item_group_key] = self.id
+    user.current_vote[group_key] = self.id
     user.save
+  end
+
+  def group_key
+    item_class.item_group_key
+  end
+
+  def item1
+    vote_items[0].try(:id)
+  end
+
+  def item2
+    vote_items[1].try(:id)
   end
 
   def add_item *items
@@ -79,6 +105,26 @@ class Vote
         vote_items.push(vi)
       end
     end
+  end
+
+  def update_item_values
+    return unless @winner_id_changed == true || (@skipped_changed == true && skipped)
+    
+    items.each {|i| i.vote_count += 1}
+
+    if @winner_id_changed == true
+      items.each do |i|
+        if i.id == winner_id
+          i.up_votes += 1
+        else
+          i.down_votes += 1
+        end
+      end
+    elsif (@skipped_changed == true && skipped)
+      items.each {|i| i.skips += 1}
+    end
+
+    items.each {|i| i.save}
   end
 
   class << self

@@ -28,4 +28,10 @@ class User
     end # /if ig
   end
 
+  def find_vote item1, item2
+    raise "Both items must be from same group" if item1.class != item2.class
+    dset = Vote.all_in('vote_items._id' => [item1.id,item2.id])
+    dset.and(item_type: item1.class, user_id:self.id).first
+  end
+
 end
