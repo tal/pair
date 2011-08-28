@@ -51,6 +51,10 @@ module Pair
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    Dir["#{config.root}/lib/ext/*.rb"].each do |f|
+      require f
+    end
   end
 
 end

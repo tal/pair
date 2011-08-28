@@ -6,26 +6,27 @@ describe Vote do
     @i1 = @ig.item_class.create(value: 'one')
     @i2 = @ig.item_class.create(value: 'two')
 
-    v = Vote.new
-    v.item_type = @i1['_type']
-    vi1 = v.vote_items.build(item_id: @i1._id)
-    vi2 = v.vote_items.build(item_id: @i2._id)
-    v.save
-
-    @v = v
+    @v = Vote.new
+    @v.user = User.new
+    @v.item_type = @i1['_type']
+    @vi1 = @v.vote_items.build(id: @i1._id)
+    @vi2 = @v.vote_items.build(id: @i2._id)
+    @v.save!
   end
 
   it "should error out if the attempted item doesn't exist" do
     v = @ig.new_vote
-    v.vote_items.build(item_id: @i1._id)
-    v.vote_items.build(item_id: 123213)
+    v.user = User.new
+    v.vote_items.build(id: @i1._id)
+    v.vote_items.build(id: 123213)
     v.save.should be false
     v.errors.should have(1).error
   end
 
   it "should error if only one item added" do
     v = @ig.new_vote
-    v.vote_items.build(item_id: @i1._id)
+    v.user = User.new
+    v.vote_items.build(id: @i1._id)
     v.save.should be false
     v.errors.should have(1).error
   end
@@ -47,30 +48,13 @@ describe Vote do
     @v.items.should == [@i1,@i2]
   end
 
-  context "getting vote" do
-    before :all do
-      @ig.item_class.create(value: 'three')
-      @ig.item_class.create(value: 'four')
-      @ig.item_class.create(value: 'five')
-    end
-
-    before do
-      @user = User.create
-      @vote = Vote.for_key_and_user @ig.key, @user
-    end
-
-    it "should return a valid new vote" do
-      @vote.user.should == @user
-      @vote.should_not be_nil
-      @vote.errors.should be_empty
-      @vote.should_not be_new
-    end
-
-    it "should return the same vote if done again" do
-      v = Vote.for_key_and_user @ig.key, @user
-      v.should == @vote
-    end
-
+  it "should accept new items" do
+    v = @ig.new_vote
+    v.user = User.new
+    v.add_item(@i1)
+    v.add_item(@i2)
+    v.vote_items.should have(2).vote_items
+    v.should be_valid
   end
 
   context "picking" do

@@ -26,7 +26,13 @@ describe Item do
     i._id.should == ii._id+1
   end
 
+  it "should " do
+    i = TestOneItem.create! value: 'first'
+    i.group_key.should == @ig.key
+  end
+
   it "should build an item pair set" do
+    pending "how to figure out how many pairs there should be"
     TestOneItem.generate_item_pair_set.should have(3).item_pairs
   end
 

@@ -48,7 +48,20 @@ Pair::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'welcome#index'
+  
+  resources :questions, as: :item_groups, controller: :item_groups
+
+  # Keep this last
+  scope ':group_key' do
+    resources :items
+
+    scope 'vote', controller: :vote do
+      get '/', as: 'new_vote', action: :new
+      get ':item1::item2', :as => 'vote_item', :action => :show
+      post ':item1::item2/:choose', :as => 'vote_item', :action => :choose
+    end
+  end
 
   # See how all your routes lay out with "rake routes"
 

@@ -20,6 +20,10 @@ class Item
   def score
     up_votes/vote_count.to_f
   end
+
+  def group_key
+    self.class.item_group_key
+  end
   
   def item_group(force=false)
     self.class.item_group(force)
@@ -35,6 +39,10 @@ private
   class << self
     def redis
       @redis ||= REDIS
+    end
+
+    def model_name
+      ActiveModel::Name.new(Item)
     end
 
     attr_reader :item_group_key

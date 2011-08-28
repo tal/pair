@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @item_group.description %>
+</p>
+
+<p>
+  <b>Key:</b>
+  <%= @item_group.key %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_group_path(@item_group) %> |
+<%= link_to 'Back', item_groups_path %>

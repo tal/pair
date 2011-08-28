@@ -10,10 +10,8 @@ class Vote
   embeds_many :vote_items
 
   def picked item
-    if item.is_a?(Item)
+    if item.is_a?(Item) || item.is_a?(VoteItem)
       item = item.id
-    elsif item.is_a?(VoteItem)
-      item = item.item_id
     end
 
     if item_ids.include?(item)
@@ -24,8 +22,14 @@ class Vote
   end
 
   validate do
-    errors.add(:whatever, 'yoyo') if items.size < 2
+    errors.add(:invalid_number_of_items, 'must have two items') if items.size != 2
+    if user && user.current_vote[item_type]
+      errors.add(:user_has_vote, "user already has a vote for this type")
+    end
   end
+  validates_presence_of :user
+
+  after_save :set_for_user
 
   def picked! item
     save if picked(item)
@@ -33,7 +37,7 @@ class Vote
 
   def winner
     vote_items.to_a.find do |vi|
-      vi.item_id == winner_id
+      vi.id == winner_id
     end.try(:item)
   end
 
@@ -50,43 +54,34 @@ class Vote
   end
 
   def item_ids
-    vote_items.collect {|vi| vi.item_id}
+    vote_items.collect {|vi| vi.id}
   end
 
   def item_class
     CONSTANTS[item_type] if item_type
   end
 
-  class << self
-    
+  def set_for_user
+    user.current_vote[item_class.item_group_key] = self.id
+    user.save
+  end
 
-    # Oh god this is ugly
-    def for_key_and_user key, user
-      if user.current_vote[key]
-        return Vote.where(_id:user.current_vote[key]).first
+  def add_item *items
+    @items = nil
+
+    items.each do |item|
+      vi = VoteItem.new
+      item = item.is_a?(Item) ? item.id : item
+      vi.id = item
+      if vote_items.first && vote_items.first.id > item
+        vote_items.unshift(vi)
+      else
+        vote_items.push(vi)
       end
-
-      ig = ItemGroup[key]
-      
-      if ig
-        v = ig.new_vote
-        
-        if v
-          v.user = user
-
-          keys = ig.item_class.user_pair(user.id)
-          v.vote_items.build(item_id:keys.pop)
-          v.vote_items.build(item_id:keys.pop)
-
-          # puts v.item_class
-          if v.save
-            user.current_vote[key] = v.id
-          end
-          return v
-        end
-      end
-
     end
+  end
+
+  class << self
 
   end
 end
@@ -95,11 +90,11 @@ class VoteItem
   include Mongoid::Document
   embedded_in :vote
 
-  field :item_id, type: Integer
+  field :id, type: Integer
 
   validates_presence_of :item
 
   def item
-    @item ||= vote.item_class.where(_id: item_id).first
+    @item ||= vote.item_class.where(_id: id).first
   end
 end
