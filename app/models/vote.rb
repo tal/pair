@@ -1,5 +1,6 @@
 class Vote
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :winner_id, type: Integer
   field :skipped,   type: Boolean, default: false
@@ -92,6 +93,12 @@ class Vote
     vote_items[1].try(:id)
   end
 
+  def as_json *args
+    resp = super(*args)
+    resp['group_key'] = group_key
+    resp
+  end
+
   def add_item *items
     @items = nil
 
@@ -125,11 +132,11 @@ class Vote
     end
 
     items.each {|i| i.save}
+
+    user.current_vote.delete group_key
+    user.save
   end
 
-  class << self
-
-  end
 end
 
 class VoteItem

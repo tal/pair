@@ -1,10 +1,12 @@
 Pair::Application.routes.draw do
-  root :to => 'welcome#index'
-  
   resources :questions, as: :item_groups, controller: :item_groups
+
+  root :to => 'welcome#index'
 
   # Keep this last
   scope ':group_key' do
+    get '/' => 'items#index'
+
     resources :items
 
     scope 'vote', controller: :vote do

@@ -17,7 +17,6 @@ class VoteController < ItemGroupController
       redirect_to(new_vote_path)
     end
 
-
     @item1 = @item_class.where(_id:params[:item1].to_i).first
     @item2 = @item_class.where(_id:params[:item2].to_i).first
 
@@ -25,28 +24,29 @@ class VoteController < ItemGroupController
   end
 
   def choose
-
-    if params[:choose] == 'skip'
+    success = if params[:choose] == 'skip'
       @current_vote.skip!
     else
       @choose = @item_class.where(_id:params[:choose].to_i).first
       @current_vote.picked! @choose
     end
-    
+
     if success
       respond_to do |format|
         format.html # new.html.erb
         format.json { render json: @current_vote }
       end
     else
-      format.html do
-        @item1 = @item_class.where(_id:params[:item1].to_i).first
-        @item2 = @item_class.where(_id:params[:item2].to_i).first
+      respond_to do |format|
+        format.html do
+          @item1 = @item_class.where(_id:params[:item1].to_i).first
+          @item2 = @item_class.where(_id:params[:item2].to_i).first
 
-        @vote = request.user.find_vote(@item1,@item2)
-        render action: "show"
+          @vote = request.user.find_vote(@item1,@item2)
+          render action: "show"
+        end
+        format.json { render json: @current_vote.errors, status: :unprocessable_entity }
       end
-      format.json { render json: @current_vote.errors, status: :unprocessable_entity }
     end
   end
 

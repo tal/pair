@@ -60,7 +60,7 @@ describe Vote do
   context "picking" do
     before do
       @v = Vote.new
-      @v.user = User.new
+      @v.user = @user = User.new
       @v.item_type = @i1['_type']
       @vi1 = @v.vote_items.build(id: @i1._id)
       @vi2 = @v.vote_items.build(id: @i2._id)
@@ -107,6 +107,12 @@ describe Vote do
 
     it "should increment the counter when picked" do
       expect { @v.picked!(@i2) }.to change{@ig.item_class.find(@i1.id).down_votes}.by(1)
+    end
+
+    it "should increment the counter when picked" do
+      @user.get_vote(@ig.key).should == @v
+      @v.picked!(@i2)
+      User.find(@user.id).get_vote(@ig.key).should be nil
     end
 
     context "skipping" do

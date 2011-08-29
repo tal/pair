@@ -1,5 +1,6 @@
 class Item
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   validates_presence_of :value
 

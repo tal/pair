@@ -2,6 +2,28 @@
  * This is a manifest file that'll automatically include all the stylesheets available in this directory
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require reset.css
  *= require_self
  *= require_tree . 
 */
+$white: #ebebeb;
+
+html {
+  background-image: url(/assets/bgs/fabric.png);
+  font-family: "Helvetica Neue", Arial;
+}
+
+#member_bar {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+
+  a {
+    text-decoration: none;
+    color: $white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

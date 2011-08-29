@@ -76,7 +76,7 @@ class ItemGroupsController < ApplicationController
     @item_group.destroy
 
     respond_to do |format|
-      format.html { redirect_to questions_url }
+      format.html { redirect_to item_groups_path }
       format.json { head :ok }
     end
   end

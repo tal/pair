@@ -3,6 +3,8 @@ include ItemGroups
 
 class ItemGroup
   include Mongoid::Document
+  include Mongoid::Timestamps
+  
   field :description, type: String
   field :key, type: String
   index :key, unique: true
