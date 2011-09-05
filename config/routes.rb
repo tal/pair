@@ -1,6 +1,9 @@
 Pair::Application.routes.draw do
   resources :questions, as: :item_groups, controller: :item_groups
 
+  match '/login' => 'user#login'
+  match '/logout' => 'user#logout'
+
   root :to => 'welcome#index'
 
   # Keep this last

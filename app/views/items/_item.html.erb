@@ -1,31 +1,5 @@
-<div class="item <%= @vote && @vote.winner_id == item.id ? 'picked' : '' %>">
-  <div class="body">
-    <% if @vote && @vote.winner_id %>
-      <div class="vote_icon">
-        <% if @vote.winner_id == item.id %>
-          ✓
-        <% else %>
-          ✗
-        <% end %>
-      </div>
-    <% end %>
+<div class="item <%= classes_for_item item %>">
+  <div class="body" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @current_vote.item1, item2: @current_vote.item2, choose: item.id) %>">
     <%= item.value %>
   </div>
-  
-  <% if @vote %>
-    <% if @vote.winner_id %>
-      <div class="vote_status">
-        <% if @vote.winner_id == item.id %>
-          You voted for me
-        <% else %>
-          You didn't like me ☹
-        <% end %>
-      </div>
-    <% elsif @vote == @current_vote %>
-      <div class="vote_box">
-        <a class="vote_action" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @current_vote.item1, item2: @current_vote.item2, choose: item.id) %>">Vote!</a>
-        <div class="overlay"></div>
-      </div>
-    <% end %>
-  <% end %>
 </div>

@@ -10,7 +10,25 @@ $white: #ebebeb;
 
 html {
   background-image: url(/assets/bgs/fabric.png);
+}
+
+body {
   font-family: "Helvetica Neue", Arial;
+  color: $white;
+}
+
+#content {
+  margin: 0 auto;
+  width: 1125px;
+}
+
+#page_logo {
+  height: 66px;
+  width: 232px;
+  background: url(/assets/verdic.png);
+  overflow: hidden;
+  text-indent: -9999px;
+  margin: 40px auto 0;
 }
 
 #member_bar {

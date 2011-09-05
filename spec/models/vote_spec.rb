@@ -5,6 +5,7 @@ describe Vote do
     @ig = ItemGroup.find_or_create_by(key: 'vote_hi')
     @i1 = @ig.item_class.create(value: 'one')
     @i2 = @ig.item_class.create(value: 'two')
+    @i3 = @ig.item_class.create(value: 'three')
 
     @v = Vote.new
     @v.user = User.new
@@ -46,6 +47,13 @@ describe Vote do
 
   it "should get both items" do
     @v.items.should == [@i1,@i2]
+  end
+
+  it "should include items" do
+    @v.include?(@i1).should == true
+    @v.include?(@i2).should == true
+    @v.include?(@i3).should == false
+    @v.include?(Item.new).should == false
   end
 
   it "should accept new items" do

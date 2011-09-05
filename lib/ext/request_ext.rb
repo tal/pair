@@ -1,7 +1,12 @@
 class ActionDispatch::Request
 
   def user
-    @user ||= User.find('4e592a9958c6ba6031000001')
+    @user ||= User.where(_id: session[:user_id]).first
+  end
+
+  def user=u
+    session[:user_id] = u.id
+    @user = u
   end
 
 end

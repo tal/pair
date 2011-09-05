@@ -1,10 +1,8 @@
 class User
   include Mongoid::Document
   field :current_vote, type: Hash, default:{}
-
-  after_initialize do
-    @get_vote = {}
-  end
+  embeds_one :fb_session
+  index 'fb_session.uid', unique: true, sparse: true
 
   # TODO: Consider caching this in an instance variable
   def get_vote group_key
@@ -21,7 +19,6 @@ class User
         keys = ig.item_class.user_pair(self.id)
         return if keys.empty?
         v.add_item(*keys)
-
         v.save!
         return v
       end # /if v
@@ -34,4 +31,9 @@ class User
     dset.and(item_type: item1.class, user_id:self.id).first
   end
 
+  class << self
+    def [] uid
+      where('fb_session.uid' => uid).first
+    end
+  end
 end

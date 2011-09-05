@@ -11,6 +11,15 @@ class Item
   field :skips, type: Integer, default: 0
   
   field :value, type: String
+
+  TYPE_REGEX = Typed::Group.new({
+      youtube: [
+        /\.youtube\..+\/watch\?.*v=([a-zA-Z0-9]{11})/#http://www.youtube.com/watch?v=1wYNFfgrXTI&feature=feedrec
+      ],
+      image: [
+        /\.(?:jpeg|jpg|png|gif)$/i
+      ]
+    })
   
   before_create :set_id
 
@@ -20,6 +29,18 @@ class Item
 
   after_create do
     self.class.update_item_pair_set
+  end
+
+  def detect_type
+    @detect_type ||= TYPE_REGEX.match(value)
+  end
+
+  def youtube?
+    detect_type.type == :youtube if detect_type
+  end
+
+  def image?
+    detect_type.type == :image if detect_type
   end
   
   def score
@@ -43,7 +64,7 @@ private
   PAIR_SEPARATOR = ','
   class << self
     def redis
-      @redis ||= REDIS
+      @redis ||= Redis::Namespace.new(item_group_key, :redis => REDIS)
     end
 
     def model_name
@@ -88,7 +109,7 @@ private
         redis.del key
         redis.sadd user_id, pair
       end
-
+      
       if pair
         key1,key2 = pair.split(PAIR_SEPARATOR)
 

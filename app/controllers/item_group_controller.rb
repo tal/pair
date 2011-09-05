@@ -9,6 +9,6 @@ class ItemGroupController < ApplicationController
     redirect_to(:root) unless @item_group
     
     @item_class = @item_group.item_class
-    @current_vote = request.user.get_or_create_vote(@item_group.key)
+    @current_vote = request.user.get_or_create_vote(@item_group.key) if request.user
   end
 end

@@ -1,6 +1,7 @@
 DB = Sequel.connect('postgres://localhost/pair_development')
 REDIS = Redis::Namespace.new(:pair_dev, :redis => Redis.new)
 
+
 Pair::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -27,6 +28,8 @@ Pair::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
+
+  config.fb_app = FacebookApp.dev
 end
 
 Mongoid.configure do |config|

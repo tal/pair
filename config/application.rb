@@ -55,6 +55,10 @@ module Pair
     Dir["#{config.root}/lib/ext/*.rb"].each do |f|
       require f
     end
+
+    Dir["#{config.root}/lib/*.rb"].each do |f|
+      require f
+    end
   end
 
 end

@@ -39,6 +39,8 @@ Pair::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.fb_app = FacebookApp.dev
 end
 
 Mongoid.configure do |config|

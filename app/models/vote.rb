@@ -72,6 +72,11 @@ class Vote
     vote_items.collect {|vi| vi.id}
   end
 
+  def include? item
+    return false if item_type != item.class.to_s
+    item_ids.include? item.id
+  end
+
   def item_class
     CONSTANTS[item_type] if item_type
   end
@@ -79,6 +84,10 @@ class Vote
   def set_for_user
     user.current_vote[group_key] = self.id
     user.save
+  end
+
+  def is_current_for_user?
+    user.current_vote[group_key] == self.id
   end
 
   def group_key
@@ -104,7 +113,10 @@ class Vote
 
     items.each do |item|
       vi = VoteItem.new
-      item = item.is_a?(Item) ? item.id : item
+      if item.is_a?(Item)
+        self.item_type ||= item.class.to_s
+        item = item.id
+      end
       vi.id = item
       if vote_items.first && vote_items.first.id > item
         vote_items.unshift(vi)

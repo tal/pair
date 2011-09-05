@@ -2,17 +2,32 @@
 <html>
 <head>
   <title>Pair</title>
-  <%= stylesheet_link_tag    "application" %>
+  <script type="text/javascript">
+    VRD = new (function Verdic() {
+      this.log = <%= Rails.dev?.to_json %>;
+      this.fbAppID = <%= Rails.fb_app.id.to_json %>;
+    })()
+  </script>
+  <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="<%= controller_name  %>">
 
 <div id="member_bar">
-  <a href="#">Logout</a>
+  <% if request.user %>
+    <a href="<%= logout_path %>" class="logout">Logout</a>
+  <% else %>
+    <a href="<%= login_path %>" class="login">Login</a>
+  <% end %>
 </div>
 
-<%= yield %>
+<div id="content">
+  <div id="page_logo">Verdic</div>
 
+  <%= yield %>
+</div>
+
+<div id="fb-root"></div>
 <%= javascript_include_tag "application" %>
 </body>
 </html>

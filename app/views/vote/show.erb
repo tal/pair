@@ -7,7 +7,7 @@
   </div>
 
   <% unless @vote.completed? %>
-    <a class="vote_action" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @item1.id, item2: @item2.id, choose: 'skip') %>">Skip!</a>
+    <a class="vote_action skip" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @item1.id, item2: @item2.id, choose: 'skip') %>">&mdash; SKIP &rarr;<div class="overlay"></div></a>
   <% end %>
   <% if @vote.skipped? %>
     Skipped!

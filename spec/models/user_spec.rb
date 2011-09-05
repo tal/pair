@@ -10,6 +10,7 @@ describe User do
       @ig = ItemGroup.create!(key: "user_test")
       @i1 = @ig.item_class.create(value: 'one')
       @i2 = @ig.item_class.create(value: 'two')
+      @i3 = @ig.item_class.create(value: 'three')
       @ig.item_class.update_item_pair_set
 
       @v = @ig.new_vote
@@ -37,6 +38,7 @@ describe User do
       @ig = ItemGroup.create!(key: "user_two_test")
       @i1 = @ig.item_class.create(value: 'one')
       @i2 = @ig.item_class.create(value: 'two')
+      @i3 = @ig.item_class.create(value: 'three')
       @ig.item_class.update_item_pair_set
     end
 
@@ -52,8 +54,9 @@ describe User do
     end
 
     it "should foo" do
-      ItemGroup.create!(key: "asdfasdfasfd")
-      v = @user.get_or_create_vote('asdfasdfasfd')
+      ig = ItemGroup.create!(key: "asddddfasdfasfd")
+      ig.item_class.update_item_pair_set
+      v = @user.get_or_create_vote(ig.key)
       v.should == nil
     end
 

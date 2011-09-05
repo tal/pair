@@ -20,7 +20,12 @@ class VoteController < ItemGroupController
     @item1 = @item_class.where(_id:params[:item1].to_i).first
     @item2 = @item_class.where(_id:params[:item2].to_i).first
 
-    @vote = request.user.find_vote(@item1,@item2)
+    if request.user
+      @vote = request.user.find_vote(@item1,@item2)
+    else
+      @vote = Vote.new
+      @vote.add_item(@item1,@item2)
+    end
   end
 
   def choose

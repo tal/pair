@@ -26,7 +26,7 @@ describe Item do
     i._id.should == ii._id+1
   end
 
-  it "should " do
+  it "should belong to defined group" do
     i = TestOneItem.create! value: 'first'
     i.group_key.should == @ig.key
   end
@@ -45,6 +45,18 @@ describe Item do
     TestOneItem.item_pair_set.should =~ TestOneItem.generate_item_pair_set
   end
 
+  context "#detect_type" do
+    it "should detect youtube" do
+      i = Item.new(value: 'http://www.youtube.com/watch?v=1wYNFfgrXTI&feature=feedrec')
+      i.should be_youtube
+    end
+
+    it "should detect image" do
+      i = Item.new(value: 'http://imager.com/foo.jpg')
+      i.should be_image
+    end
+  end
+
   it "should not return the same pair twice" do
     user_id = 'asdf123'
     TestOneItem.redis.del user_id
@@ -55,9 +67,9 @@ describe Item do
       set = TestOneItem.user_pair(user_id)
       sets << set unless set.empty?
       times += 1
-    end until set.empty? || times > total+2
+      times.should <= total+1
+    end until set.empty?
 
     sets.should have(total).sets
-    times.should == total+1
   end
 end

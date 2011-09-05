@@ -1,0 +1,51 @@
+$white: #ebebeb;
+
+@mixin clearfix {
+  display: inline-block;
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  * html & { height: 1px }
+}
+
+@mixin gradient($var) {
+  background: -webkit-linear-gradient($var); /* Chrome10+,Safari5.1+ */
+  background:    -moz-linear-gradient($var); /* FF3.6+ */
+  background:      -o-linear-gradient($var); /* Opera11.10+ */
+  background:     -ms-linear-gradient($var); /* IE10+ */
+  background:         linear-gradient($var); /* W3C */
+}
+
+@mixin button-gradient {
+  color: hsla(0,0%,5%,0.8);
+  background: #a5a5a5; /* Old browsers */
+  background: -webkit-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* Chrome10+,Safari5.1+ */
+  background:    -moz-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* FF3.6+ */
+  background:      -o-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* Opera11.10+ */
+  background:     -ms-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* IE10+ */
+  background:         linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* W3C */
+
+  &.clickable {
+    cursor: pointer;
+    box-shadow: 0 0 7px 2px rgba(0, 0, 0, 0.7);
+    &:hover {
+      background: -webkit-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 45%,hsl(0,0%,92%) 100%); /* Chrome10+,Safari5.1+ */
+      background:    -moz-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 45%,hsl(0,0%,92%) 100%); /* FF3.6+ */
+      background:      -o-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 45%,hsl(0,0%,92%) 100%); /* Opera11.10+ */
+      background:     -ms-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 45%,hsl(0,0%,92%) 100%); /* IE10+ */
+      background:         linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 45%,hsl(0,0%,92%) 100%); /* W3C */
+    }
+    &:active {
+      box-shadow: none;
+      background: -webkit-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* Chrome10+,Safari5.1+ */
+      background:    -moz-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* FF3.6+ */
+      background:      -o-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* Opera11.10+ */
+      background:     -ms-linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* IE10+ */
+      background:         linear-gradient(top, hsl(0,0%,65%) 0%,hsl(0,0%,92%) 62%,hsl(0,0%,92%) 100%); /* W3C */
+    }
+  }
+}
