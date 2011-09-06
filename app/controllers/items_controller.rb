@@ -1,5 +1,6 @@
 class ItemsController < ItemGroupController
-  
+  before_filter :require_user, except: [:index,:show]
+
   # GET /items
   # GET /items.json
   def index

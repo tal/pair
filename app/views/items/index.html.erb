@@ -1,9 +1,11 @@
 <h1><%= @item_group.description %></h1>
 
+<% if request.user %>
 <div class="actions">
   <%= link_to 'Add Answer', new_item_path, class: 'action-button answer clickable' %>
   <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'action-button vote clickable' %>
 </div>
+<% end %>
 <br/>
 <div class="item-list">
   <%= render partial: @items %>
