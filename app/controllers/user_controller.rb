@@ -4,7 +4,7 @@ class UserController < ApplicationController
     if params[:fb_session]
       fbs = FbSession.new(params[:fb_session])
       unless u = User[fbs.uid]
-        u = u.new
+        u = User.new
       end
       u.fb_session = fbs
     end
