@@ -42,10 +42,10 @@ class ItemsController < ItemGroupController
   # POST /items.json
   def create
     @item = @item_group.item_class.new(params[:item])
-
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        # format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.html { redirect_to "/#{@item_group.key}" }
         format.json { render json: @item, status: :created, location: @item }
       else
         format.html { render action: "new" }

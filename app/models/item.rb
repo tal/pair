@@ -47,6 +47,10 @@ class Item
     up_votes/vote_count.to_f
   end
 
+  def score_pct
+    (score*100).round(2)
+  end
+
   def group_key
     self.class.item_group_key
   end

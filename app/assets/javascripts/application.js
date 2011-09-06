@@ -7,5 +7,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require tal
+//= require_tree ./vendor
 //= require common
 //= require_tree .

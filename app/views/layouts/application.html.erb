@@ -21,8 +21,14 @@
   <% end %>
 </div>
 
+<div id="flash">
+  <%= flash[:notice] %>
+</div>
+
 <div id="content">
-  <div id="page_logo">Verdic</div>
+  <%= link_to root_path do %>
+    <div id="page_logo">Verdic</div>
+  <% end %>
 
   <%= yield %>
 </div>

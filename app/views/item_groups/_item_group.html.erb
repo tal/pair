@@ -1,0 +1,17 @@
+<%= div_for item_group do %>
+  <div class="item_count">
+    <%= pluralize(item_group.cnt, 'item') %>
+  </div>
+
+  <%= link_to items_path(group_key: item_group.key), class: 'description' do %>
+    <%= item_group.description %>
+  <% end %>
+
+  <!-- <%= link_to 'Show', item_group %> -->
+  <% if_visible item_group do %>
+    <div class="admin">
+      <%= link_to 'Edit', edit_item_group_path(item_group) %>
+      <%= link_to '&#10007;'.html_safe, item_group, confirm: 'Are you sure?', method: :delete %>
+    </div>
+  <% end %>
+<% end %>

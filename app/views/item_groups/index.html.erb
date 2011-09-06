@@ -1,26 +1,8 @@
 <h1>Listing questions</h1>
 
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Key</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @item_groups.each do |item_group| %>
-  <tr>
-    <td><%= item_group.description %></td>
-    <td><%= item_group.key %></td>
-    <td><%= link_to 'Show', item_group %></td>
-    <td><%= link_to 'Edit', edit_item_group_path(item_group) %></td>
-    <td><%= link_to 'Destroy', item_group, confirm: 'Are you sure?', method: :delete %></td>
-    <td><%= link_to 'Items', items_path(group_key: item_group.key) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
+<div class="item_groups">
+  <%= render partial: @item_groups %>
+</div>
 
 <%= link_to 'New Question', new_item_group_path %>

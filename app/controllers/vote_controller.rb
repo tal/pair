@@ -4,7 +4,8 @@ class VoteController < ItemGroupController
     if @current_vote
       redirect_to votes_url(group_key:@current_vote.group_key,item1:@current_vote.item1,item2:@current_vote.item2)
     else
-      render :text => 'Fuck'
+      flash[:notice] = 'Nothing left to vote on'
+      redirect_to items_path(group_key:@item_group.key)
     end
   end
 

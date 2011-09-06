@@ -4,7 +4,7 @@
   <%= link_to 'Add Answer', new_item_path, class: 'action-button answer clickable' %>
   <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'action-button vote clickable' %>
 </div>
-
+<br/>
 <div class="item-list">
-<%= render partial: @items %>
+  <%= render partial: @items %>
 </div>

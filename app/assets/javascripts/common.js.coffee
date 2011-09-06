@@ -19,11 +19,16 @@ VRD.fbInit.push ->
     VRD.logout.ev.fire()
 
 VRD.logout = ->
+  VRD.fbInit.push ->
+    FB.logout ->
+      document.location.href = document.location.href
+  VRD.logout.ev.fire()
+  
+  return
   dfd = $.ajax
     url: '/logout.json',
     type: 'POST',
     dataType: 'json'
-  VRD.fbInit.push FB.logout
   dfd.success (data) ->
     VRD.logout.ev.fire()
 
@@ -38,6 +43,7 @@ VRD.login = ->
     FB.login (data) ->
       if data.status is 'connected'
         VRD.setFbSession data.session
+        document.location.href = document.location.href
 
 VRD.login.ev = new Tal.Event(once: true)
 VRD.login.ev.bind ->
@@ -46,6 +52,9 @@ VRD.login.ev.bind ->
   $('#member_bar').append("""<a href="#" class="logout">Logout</a>""")
 
 VRD.setFbSession = (session) ->
+  VRD.login.ev.fire()
+  
+  return
   dfd = $.ajax
     url: '/login.json',
     type: 'POST',
@@ -62,3 +71,4 @@ $('body').delegate '.logout', 'click', (ev) ->
   ev.preventDefault()
   VRD.logout()
 
+$('label').inFieldLabels()

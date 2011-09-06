@@ -20,4 +20,21 @@ module ApplicationHelper
 
     cla.join(' ')
   end
+
+  def visible item
+    return unless request.user && item.respond_to?(:user)
+    item.user == request.user
+  end
+
+  def if_visible item, &blk
+    if visible item
+      blk.call
+    end
+  end
+
+  def item_stats &blk
+    if visible(@item_group) && controller_name == "items"
+      blk.call
+    end
+  end
 end

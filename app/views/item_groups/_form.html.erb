@@ -1,4 +1,4 @@
-<%= form_for(@item_group) do |f| %>
+<%= form_for(@item_group, html:{class: 'item_group_form'}) do |f| %>
   <% if @item_group.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item_group.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -11,15 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
+  <div class="field question_field">
+    <%= f.label :description, "What's your question?" %>
+    <%= f.text_field :description, class: 'input_text' %>
   </div>
-  <div class="field">
-    <%= f.label :key %><br />
-    <%= f.text_field :key %>
+  <div class="field key_field">
+    <%= f.label :key, 'Unique key' %>
+    <%= f.text_field :key, class: 'input_text' %>
+    <div class="description">
+      Like an email address, (a-z,0-9,-,_)
+    </div>
   </div>
+
+  <div class="field permissions_field">
+    <table>
+      <tr>
+        <th></th>
+        <th>Just Me</th>
+        <th>Friends</th>
+        <th>Everyone</th>
+      </tr>
+      <tr class="answer">
+        <td class="row_header">Can Answer</td>
+        <td class="radio"><%= f.radio_button :can_submit, 'me' %></td>
+        <td class="radio"><%= f.radio_button :can_submit, 'friends', disabled: 'disabled' %></td>
+        <td class="radio"><%= f.radio_button :can_submit, 'everyone' %></td>
+      </tr>
+      <tr class="vote">
+        <td class="row_header">Can Vote</td>
+        <td class="radio"></td>
+        <td class="radio"><%= f.radio_button :can_vote, 'friends', disabled: 'disabled' %></td>
+        <td class="radio"><%= f.radio_button :can_vote, 'everyone' %></td>
+      </tr>
+    </table>
+  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create Question', class: 'input_submit clickable' %>
   </div>
 <% end %>

@@ -1,4 +1,4 @@
-<%= form_for(@item, as: :item, url: items_path(group_key: @item.group_key) ) do |f| %>
+<%= form_for(@item, as: :item, url: items_path(group_key: @item.group_key)) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -12,11 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
+    <%= f.label :value, "Submit your own answer" %>
+    <%= f.text_field :value, class: 'input_text' %>
+    <%= f.submit '+', class: 'input_submit' %>
   </div>
 <% end %>

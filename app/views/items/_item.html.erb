@@ -1,5 +1,23 @@
 <div class="item <%= classes_for_item item %>">
-  <div class="body" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @current_vote.item1, item2: @current_vote.item2, choose: item.id) %>">
+  <div class="bg"><div class="left" style="width:<%= item.score_pct %>%"></div><div class="right" style="width:<%= 100-item.score_pct %>%"></div></div>
+  <div class="body" href="<%= vote_on_item_path(group_key: @current_vote.group_key, item1: @current_vote.item1, item2: @current_vote.item2, choose: item.id) if @current_vote %>">
     <%= item.value %>
   </div>
+
+  <% item_stats do %>
+    <div class="stats">
+      <div class="stat total">
+        Total - <%= item.vote_count %>
+      </div>
+      <div class="stat up">
+        For - <%= item.up_votes %>
+      </div>
+      <div class="stat down">
+        Against - <%= item.down_votes %>
+      </div>
+      <div class="stat skip">
+        Skips - <%= item.skips %>
+      </div>
+    </div>
+  <% end %>
 </div>

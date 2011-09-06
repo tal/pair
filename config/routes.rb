@@ -1,5 +1,9 @@
 Pair::Application.routes.draw do
-  resources :questions, as: :item_groups, controller: :item_groups
+  resources :questions, as: :item_groups, controller: :item_groups do
+    collection do
+      get 'mine'
+    end
+  end
 
   match '/login' => 'user#login'
   match '/logout' => 'user#logout'

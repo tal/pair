@@ -9,6 +9,11 @@ class ItemGroup
   field :key, type: String
   index :key, unique: true
   field :cnt, type: Integer, default: 0
+  field :comparison_type, default: 'text'
+  field :can_submit, default: 'everyone'
+  field :can_vote, default: 'everyone'
+
+  belongs_to :user
 
   validates_presence_of :key
 

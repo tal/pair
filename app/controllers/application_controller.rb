@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
 
 private
   
+  def require_user
+    unless request.user
+      redirect_to root_path
+    end
+  end
+    
   def get_user_from_fb_cookie
     str = cookies[Rails.fb_app.cookie_name].try(:gsub,"\"",'')
     fb_params =  str ? URL::ParamsHash.from_string(str) : {}

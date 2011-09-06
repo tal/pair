@@ -1,0 +1,147 @@
+@import "mixins.scss";
+
+#item_groups {
+  .item_groups {
+    width: 800px;
+    margin: 0 auto;
+    .item_group {
+      position: relative;
+      @include clearfix;
+      display: block;
+      border-top: 1px solid transparentize($white,0.7);
+      border-bottom: 1px solid transparentize(black,0.7);
+      padding: 10px 0;
+      &:first-child {
+        border-top: none;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .item_count {
+        position: absolute;
+        left: -15px;
+        bottom: 15px;
+        width: 100px;
+        text-align: right;
+      }
+
+      .description {
+        margin-left: 100px;
+        font-size: 32px;
+        text-shadow: hsla(0%,0%,10%,1) 3px 4px 2px;
+        cursor: pointer;
+        display: block;
+        color: $white;
+        text-decoration: none;
+        float: left;
+        &:active {
+          text-shadow: none;
+        }
+      }
+
+      .admin {
+        float: left;
+        margin: 12px 20px 0;
+        
+        a {
+          text-decoration: none;
+          color: $white;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    
+    }
+  
+  }
+
+  .item_group_form {
+
+    .field {
+      font-size: 32px;
+      width: 700px;
+      margin: 0 auto;
+      .description {
+        font-size: 12px;
+        font-style: italic;
+        margin-left: 8px;
+
+        &:before {
+          content: '*';
+        }
+      }
+
+      &.question_field {
+        .input_text {
+          border-radius: 4px;
+          padding: 6px 60px 2px 6px;
+          width: 630px;
+        }
+      }
+
+      &.key_field {
+        font-size: 18px;
+        margin: 10px auto 0;
+        width: 500px;
+
+        label {
+          top: 5px;
+        }
+
+        .input_text {
+          border-radius: 4px;
+          padding: 6px 60px 2px 6px;
+          width: 430px;
+        }
+      }
+
+      &.permissions_field {
+        margin-top: 10px;
+      }
+    }
+
+    .actions {
+      text-align: center;
+      margin-top: 25px;
+
+      .input_submit {
+        font-size: 18px;
+        border: none;
+        display: block;
+        border-radius: 3px;
+        margin: 0 auto;
+        padding: 5px 8px 2px;
+        @include button-gradient;
+      }
+    }
+
+    label {
+      left: 8px;
+    }
+
+    table {
+      margin: 0 auto;
+      font-size: 14px;
+      td, th {
+        padding: 5px;
+      }
+
+      .row_header {
+        font-weight: bold;
+      }
+
+      .radio {
+        input {
+          margin: 0 auto;
+          display: block;
+        }
+      
+      }
+    
+    }
+  }
+
+}
