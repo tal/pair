@@ -1,3 +1,4 @@
+require 'pp'
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:

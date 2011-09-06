@@ -20,8 +20,6 @@ private
       u = User[fb_params[:uid]]
     end
 
-    logger.fatal fb_params.pretty_inspect
-
     if u
       request.user = u
     end
