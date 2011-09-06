@@ -1,5 +1,7 @@
 DB = Sequel.connect(ENV["DATABASE_URL"])
-REDIS = Redis.new(:path => ENV["REDISTOGO_URL"])
+
+uri = URI.parse(ENV["REDISTOGO_URL"])
+REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 
 Pair::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
