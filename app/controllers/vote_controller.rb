@@ -20,7 +20,8 @@ class VoteController < ItemGroupController
 
     @item1 = @item_class.where(_id:params[:item1].to_i).first
     @item2 = @item_class.where(_id:params[:item2].to_i).first
-
+    logger.error "i1: #{@item1.inspect} i2: #{@item2.inspect}"
+    logger.error "item-class: #{@item_class.inspect}"
     if request.user
       @vote = request.user.find_vote(@item1,@item2)
     else
