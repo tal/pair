@@ -42,8 +42,9 @@ VRD.login = ->
   VRD.fbInit.push ->
     FB.login (data) ->
       if data.status is 'connected'
+        VRD.login.ev.push ->
+          document.location.href = document.location.href
         VRD.setFbSession data.session
-        document.location.href = document.location.href
 
 VRD.login.ev = new Tal.Event(once: true)
 VRD.login.ev.bind ->
@@ -52,9 +53,6 @@ VRD.login.ev.bind ->
   $('#member_bar').append("""<a href="#" class="logout">Logout</a>""")
 
 VRD.setFbSession = (session) ->
-  VRD.login.ev.fire()
-  
-  return
   dfd = $.ajax
     url: '/login.json',
     type: 'POST',
