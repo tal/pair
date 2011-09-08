@@ -23,9 +23,9 @@
 
 
 <div id="content">
-  <%= link_to root_path do %>
-    <div id="page_logo">Verdic</div>
-  <% end %>
+  <div id="page_logo">
+    <%= link_to 'Verdic', root_path %>
+  </div>
   <% if flash[:notice] %>
     <div class="flash notice">
       <%= flash[:notice] %>
