@@ -14,11 +14,7 @@
   <% end %>
 </div>
 
-<ul class="vote_dash">
-  <li class="di">
-    <a href="<%= new_item_path(group_key:@item_group.key) %>">Submit Your Own Answer</a>
-  </li>
-  <li class="di">
-    <a href="<%= new_item_group_path %>">Ask Your Own Question</a>
-  </li>
-</li>
+<div class="actions" style="clear:both; margin-top: 60px;">
+    <a href="<%= new_item_path(group_key:@item_group.key) %>" class="action-button clickable">Submit Your Own Answer</a>
+    <a href="<%= new_item_group_path %>" class="action-button clickable">Ask Your Own Question</a>
+</div>
