@@ -100,6 +100,8 @@ GEM
       activesupport (= 3.1.0)
       bundler (~> 1.0)
       railties (= 3.1.0)
+    rails-footnotes (3.7.4)
+      rails (>= 3.0.0)
     railties (3.1.0)
       actionpack (= 3.1.0)
       activesupport (= 3.1.0)
@@ -113,6 +115,8 @@ GEM
     redis (2.2.2)
     redis-namespace (1.1.0)
       redis (< 3.0.0)
+    redis-store (1.0.0.1)
+      redis (~> 2.2.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.6.0)
@@ -181,8 +185,10 @@ DEPENDENCIES
   mongoid (~> 2.2.0)
   pg
   rails (~> 3.1.0)
+  rails-footnotes (>= 3.7)
   redis
   redis-namespace
+  redis-store
   rspec-rails (~> 2.6)
   ruby-debug19
   sass-rails (~> 3.1.0)

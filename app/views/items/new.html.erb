@@ -1,5 +1,7 @@
 <h1><%= @item_group.description %></h1>
 
-<%= render 'form' %>
+<div class="actions">
+  <%= link_to 'All Answers', items_path, class: 'action-button clickable' %>
+</div>
 
-<%= link_to 'Back', items_path %>
+<%= render 'form' %>

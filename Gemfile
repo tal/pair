@@ -28,6 +28,7 @@ group :development do
   gem 'looksee'
   gem 'wirb'
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rails-footnotes', '>= 3.7'
 end
 
 group :test, :development do
@@ -44,3 +45,4 @@ gem "mongoid", "~> 2.2.0"
 gem "bson_ext", "~> 1.3"
 gem 'url'
 gem 'typed-matcher'
+gem 'redis-store'

@@ -1,5 +1,32 @@
 @import "mixins.scss";
 
+.actions {
+  position: relative;
+  left: 50%;    
+  margin-bottom: 20px;
+  margin-top: -20px;
+  @include clearfix;
+
+  .action-button {
+    display: block;
+    float: left;
+    left: -50%;
+    position: relative;
+    margin-left: 20px;
+    &:first-child {
+      margin-left: 0;
+    }
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    font-variant: small-caps;
+    padding: 2px 10px;
+    @include button-gradient;
+  }
+}
+
 #items {
 
   .item_new {
@@ -86,30 +113,4 @@
     }
   }
 
-  .actions {
-    position: relative;
-    left: 50%;    
-    margin-bottom: 20px;
-    margin-top: -20px;
-    @include clearfix;
-
-    .action-button {
-      display: block;
-      float: left;
-      left: -50%;
-      position: relative;
-      margin-left: 20px;
-      &:first-child {
-        margin-left: 0;
-      }
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 18px;
-      text-align: center;
-      font-weight: bold;
-      font-variant: small-caps;
-      padding: 2px 10px;
-      @include button-gradient;
-    }
-  }
 }

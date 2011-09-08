@@ -5,6 +5,7 @@ class ItemsController < ItemGroupController
   # GET /items.json
   def index
     @items = @item_group.item_class.all
+    flash.now[:notice] = "You need at least 2 answers to vote, add your own answer." unless @items.size > 1
 
     respond_to do |format|
       format.html # index.html.erb

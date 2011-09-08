@@ -57,7 +57,7 @@ class ItemGroupsController < ApplicationController
 
     respond_to do |format|
       if @item_group.save
-        format.html { redirect_to items_path(group_key:@item_group.key), notice: 'Question was successfully created.' }
+        format.html { redirect_to new_item_path(group_key:@item_group.key), notice: 'Question was successfully created. Want to add something for people to vote on?' }
         format.json { render json: @item_group, status: :created, location: @item_group }
       else
         format.html { render action: "new" }
@@ -74,7 +74,10 @@ class ItemGroupsController < ApplicationController
 
     respond_to do |format|
       if @item_group.update_attributes(params[:item_group])
-        format.html { redirect_to items_path(group_key:@item_group.key), notice: 'Question was successfully updated.' }
+        format.html do
+          redirect_to items_path(group_key:@item_group.key), notice: 'Question was successfully updated.'
+        end
+
         format.json { head :ok }
       else
         format.html { render action: "edit" }

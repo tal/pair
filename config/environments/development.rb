@@ -1,6 +1,11 @@
 DB = Sequel.connect('postgres://localhost/pair_development')
 REDIS = Redis::Namespace.new(:pair_dev, :redis => Redis.new)
 
+if defined?(Footnotes)
+  Footnotes.run! # first of all
+
+  # ... other init code
+end
 
 Pair::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb

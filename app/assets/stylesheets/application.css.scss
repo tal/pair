@@ -28,6 +28,20 @@ form .field {
   }
 }
 
+.flash {
+  font-size: 20px;
+  margin-top: 15px;
+  text-align: center;
+  text-shadow: 2px 3px 1px #000000;
+
+  &.notice {
+    color: orange;
+  }
+  &.alert {
+    color: red;
+  }
+}
+
 #content {
   margin: 0 auto;
   width: 1125px;
