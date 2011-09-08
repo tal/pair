@@ -1,8 +1,9 @@
 <h1>Listing questions</h1>
 
+<div class="actions">
+  <%= link_to 'New Question', new_item_group_path, class: 'action-button clickable' %>
+</div>
 
 <div class="item_groups">
   <%= render partial: @item_groups %>
 </div>
-
-<%= link_to 'New Question', new_item_group_path %>
