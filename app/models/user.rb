@@ -9,6 +9,10 @@ class User
     Vote.find(current_vote[group_key]) if current_vote[group_key]
   end
 
+  def admin?
+    id == BSON::ObjectId('4e658c340e2672000100002b')
+  end
+
   def get_or_create_vote group_key
     return get_vote(group_key) if get_vote(group_key)
 
