@@ -13,6 +13,9 @@
 <% if request.user.fb_session.try(:uid).to_s == '37901410' %>
 <%= debug @item_group.item_class %>
 <%= debug @item_group.item_class.try(:count) %>
+<%= debug Mongoid.master[@item_group.key].count %>
 <%= debug @item_group.item_class.first %>
 <%= debug @item_group.item_class.last %>
+Master:<br/>
+<%= debug Mongoid.master %>
 <% end %>
