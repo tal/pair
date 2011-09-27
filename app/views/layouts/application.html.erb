@@ -11,14 +11,9 @@
   <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 
+  <%= og_tags %>
   <% if @item %>
-    <meta property="fb:app_id"          content="<%= Rails.fb_app.id %>"> 
-    <meta property="og:type"            content="<%= Rails.fb_app.namespace %>:answer">
-    <meta property="og:url"             content="<%= item_url(@item, group_key: @item.group_key) %>">
-    <meta property="og:title"           content="<%= @item.value %>">
-    <meta property="og:description"     content="In answer to the question: <%= @item.item_group.description %>">
-    <meta property="og:image"           content="<%= @item.fb_image %>">
-    <meta property="verdicapp:question" content="<%= item_group_url(@item.item_group) %>">
+
   <% end %>
 </head>
 <body id="<%= controller_name  %>">
