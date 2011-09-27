@@ -80,6 +80,7 @@ module ApplicationHelper
       props['og:type'] = Rails.fb_app.namespace + ':question'
       props["og:url"] = item_group_url(@item_group)
       props['og:title'] = @item_group.description
+      props['og:image'] = 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png'
     end
     
     props.collect do |property, content|

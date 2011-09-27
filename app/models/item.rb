@@ -67,7 +67,7 @@ class Item
     if image?
       value
     else
-      "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png"
+      'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png'
     end
   end
 
