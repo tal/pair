@@ -14,7 +14,14 @@
   <% end %>
 </div>
 
-<div class="actions" style="clear:both; margin-top: 60px;">
+<%= aditional_item_info @item1 %>
+
+
+<div class='clearfix' style="text-align: center;margin-top: 60px;">
+  <%= link_to 'Submit Your Own Answer', new_item_path, class: 'big-button response' %>
+  <%= link_to 'Ask your own question', new_item_group_path, class: 'big-button questions' %>
+</div>
+<!-- <div class="actions" style="clear:both; margin-top: 60px;">
     <a href="<%= new_item_path(group_key:@item_group.key) %>" class="action-button clickable">Submit Your Own Answer</a>
     <a href="<%= new_item_group_path %>" class="action-button clickable">Ask Your Own Question</a>
-</div>
+</div> -->

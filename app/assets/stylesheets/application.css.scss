@@ -42,6 +42,33 @@ form .field {
   }
 }
 
+.big-button {
+  display: inline-block;
+  width: 106px;
+  height: 109px;
+  background-position: center top;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+
+  &:hover {
+    background-position: center -109px; 
+  }
+  &:active {
+    background-position: center -224px;
+  }
+
+  &.questions {
+    background-image: url(/assets/button-questions.png)
+  }
+  &.response {
+    background-image: url(/assets/button-response.png)
+  }
+  &.vote {
+    background-image: url(/assets/button-vote.png)
+  }
+}
+
 #content {
   margin: 0 auto;
   width: 1125px;

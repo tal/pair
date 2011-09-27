@@ -159,7 +159,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    typed-matcher (0.0.2)
+    typed-matcher (0.0.3)
     tzinfo (0.3.29)
     uglifier (1.0.3)
       execjs (>= 0.3.0)

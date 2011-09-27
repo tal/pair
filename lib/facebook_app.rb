@@ -1,5 +1,5 @@
 class FacebookApp
-  attr_accessor :id, :secret
+  attr_accessor :id, :secret, :namespace
 
   def cookie_name
     @cookies_name ||= :"fbs_#{id}"
@@ -23,6 +23,7 @@ class FacebookApp
         fba = new
         fba.id = 201879239874748
         fba.secret = 'ec027d8c174ee2c66e49678dbd6af2e9'
+        fba.namespace = 'verdicdev'
         fba
       end
     end
@@ -32,6 +33,7 @@ class FacebookApp
         fba = new
         fba.id = 190477397684803
         fba.secret = '89d4840ab8048f43c5cc2a9ac64632ce'
+        fba.namespace = 'verdicapp'
         fba
       end
     end

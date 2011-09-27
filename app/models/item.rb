@@ -42,6 +42,10 @@ class Item
   def image?
     detect_type.type == :image if detect_type
   end
+
+  def button_text
+    detect_type ? 'Pick' : value
+  end
   
   def score
     up_votes/vote_count.to_f
@@ -57,6 +61,14 @@ class Item
   
   def item_group(force=false)
     self.class.item_group(force)
+  end
+
+  def fb_image
+    if image?
+      value
+    else
+      "https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png"
+    end
   end
 
 private

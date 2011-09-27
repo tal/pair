@@ -2,11 +2,15 @@
 
 <% if request.user %>
 <div class="actions">
-  <%= link_to 'Add Answer', new_item_path, class: 'action-button answer clickable' %>
+  <%= link_to 'Submit Your Own Answer', new_item_path, class: 'action-button answer clickable' %>
   <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'action-button vote clickable' %>
 </div>
 <% end %>
-<br/>
+<div class='clearfix' style="text-align: center">
+  <%= link_to 'Submit Your Own Answer', new_item_path, class: 'big-button response' %>
+  <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'big-button vote' %>
+</div>
+<h2>Answers already submitted:</h2>
 <div class="item-list">
   <%= render partial: @items %>
 </div>

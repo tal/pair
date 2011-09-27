@@ -37,4 +37,25 @@ module ApplicationHelper
       blk.call
     end
   end
+
+  def aditional_item_info item, opts={}, &blk
+    tag = begin
+      opts |= {}
+      if item.youtube?
+        u = URL.new("http://www.youtube.com/embed/#{item.detect_type[1]}")
+        u[:autohide] = 1
+        u[:theme] = 'dark'
+        u[:color] = 'white'
+        opts |= {class: 'item-content youtube', frameborder: 0}
+        opts[:src] = u.to_s
+        content_tag :iframe, '', opts
+      elsif item.image?
+        tag 'img', src: item.value, class: 'item-content image'
+      end
+    end
+
+    if block_given?
+    end
+  end
+
 end
