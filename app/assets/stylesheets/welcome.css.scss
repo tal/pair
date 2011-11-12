@@ -1,3 +1,42 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "mixins.scss";
+
+.sample_questions .vote {
+  text-align: center;
+  .items {
+    width: 800px;
+    margin: 0 auto;
+  }
+
+  .item {
+    text-align: center;
+    width: 350px;
+    .body {
+      @include button-gradient;
+      font-size: 18px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    &:first-child {
+      float: left;
+    }
+
+    &:last-child {
+      float: right;
+    }
+
+  }
+
+  .vote_action.skip {
+    font-size: 12px;
+    font-weight: none;
+    height: 20px;
+    line-height: 20px;
+    width: 72px;
+    margin-top: 10px;
+  }
+}

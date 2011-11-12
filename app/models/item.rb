@@ -5,6 +5,8 @@ class Item
   validates_presence_of :value
 
   field :_id, type: Integer
+  field :active, type: Boolean, default: true
+  index :active
   field :vote_count, type: Integer, default: 0
   field :up_votes, type: Integer, default: 0
   field :down_votes, type: Integer, default: 0
@@ -27,8 +29,17 @@ class Item
 
   has_many :votes, as: :votable
 
+  named_scope :visible, where: {active: true}
+
   after_create do
     self.class.update_item_pair_set
+    item_group.inc(:cnt,1)
+  end
+
+  def disable
+    self.active = false
+    item_group.cnt = item_group.cnt-1 and item_group.save
+    save
   end
 
   def detect_type
@@ -74,7 +85,7 @@ class Item
 private
 
   def set_id
-    self._id = item_group.inc(:cnt,1)
+    self._id = item_group.get_new_item_id
   end
 
   PAIR_SEPARATOR = ','
@@ -133,6 +144,10 @@ private
       else
         return []
       end
+    end
+
+    def random_pair
+      redis.srandmember(pair_set_key).split(PAIR_SEPARATOR).collect{|key| key.to_i(36)}
     end
 
     def user_item_pair user_id

@@ -18,11 +18,12 @@ private
       u = User[fb_params[:uid]]
     elsif fb_params[:uid]
       u = User[fb_params[:uid]]
+    else
+      # u = User.first
+      u = User.all.to_a.last
     end
 
-    if u
-      request.user = u
-    end
+    request.user = u if u
   end
 
 end

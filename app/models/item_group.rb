@@ -4,18 +4,21 @@ include ItemGroups
 class ItemGroup
   include Mongoid::Document
   include Mongoid::Timestamps
+  include UserComparitor::Mongoid
   
   field :description, type: String
   field :key, type: String
   index :key, unique: true
   field :cnt, type: Integer, default: 0
+  field :sequ, type: Integer, default: 0
   field :comparison_type, default: 'text'
-  field :can_submit, default: 'everyone'
-  field :can_vote, default: 'everyone'
+  user_can :vote
+  user_can :submit
 
   belongs_to :user
 
   validates_presence_of :key
+  validates_uniqueness_of :key
 
   after_initialize :item_class
   after_create :item_class
@@ -35,10 +38,21 @@ class ItemGroup
     v
   end
 
+  def dummy_vote
+    v = new_vote
+    keys = item_class.random_pair
+    v.add_item(*keys)
+    v
+  end
+
   def item_class
     unless key.blank? || new?
       ITEM_CLASSES[key]
     end
+  end
+
+  def get_new_item_id
+    inc(:sequ,1)
   end
   
   def items

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Item do
   before(:all) do 
     @ig = ItemGroup.create(key: 'test_one')
+    TestOneItem.create! value: 'second'
+    TestOneItem.create! value: 'three'
   end
   
   it "should create a new item" do
@@ -55,6 +57,12 @@ describe Item do
       i = Item.new(value: 'http://imager.com/foo.jpg')
       i.should be_image
     end
+  end
+
+  it "should get random keys" do
+    TestOneItem.create! value: 'first'
+    TestOneItem.create! value: 'second'
+    TestOneItem.random_pair.should have(2).keys
   end
 
   it "should not return the same pair twice" do

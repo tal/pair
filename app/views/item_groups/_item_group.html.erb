@@ -1,9 +1,9 @@
 <%= div_for item_group do %>
-  <div class="item_count">
+  <%= link_to items_path(group_key: item_group.key), class: 'item_count' do %>
     <%= pluralize(item_group.cnt, 'item') %>
-  </div>
+  <% end %>
 
-  <%= link_to items_path(group_key: item_group.key), class: 'description' do %>
+  <%= link_to new_vote_path(group_key: item_group.key), class: 'description' do %>
     <%= item_group.description %>
   <% end %>
 

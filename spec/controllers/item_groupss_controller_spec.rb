@@ -21,75 +21,77 @@ require 'spec_helper'
 describe ItemGroupsController do
 
   # This should return the minimal set of attributes required to create a valid
-  # Question. As you add validations to Question, be sure to
+  # ItemGroup. As you add validations to ItemGroup, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {key: 'item_groups_controller_test'+BSON::ObjectId.new.to_s}
   end
 
   describe "GET index" do
     it "assigns all questions as @questions" do
-      question = Question.create! valid_attributes
+      puts valid_attributes
+      puts valid_attributes
+      question = ItemGroup.create! valid_attributes
       get :index
-      assigns(:questions).should eq([question])
+      assigns(:item_groups).should eq([question])
     end
   end
 
   describe "GET show" do
     it "assigns the requested question as @question" do
-      question = Question.create! valid_attributes
+      question = ItemGroup.create! valid_attributes
       get :show, :id => question.id.to_s
-      assigns(:question).should eq(question)
+      assigns(:item_group).should eq(question)
     end
   end
 
   describe "GET new" do
     it "assigns a new question as @question" do
       get :new
-      assigns(:question).should be_a_new(Question)
+      assigns(:item_group).should be_a_new(ItemGroup)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested question as @question" do
-      question = Question.create! valid_attributes
+      question = ItemGroup.create! valid_attributes
       get :edit, :id => question.id.to_s
-      assigns(:question).should eq(question)
+      assigns(:item_group).should eq(question)
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Question" do
+      it "creates a new ItemGroup" do
         expect {
-          post :create, :question => valid_attributes
-        }.to change(Question, :count).by(1)
+          post :create, :item_group => valid_attributes
+        }.to change(ItemGroup, :count).by(1)
       end
 
       it "assigns a newly created question as @question" do
-        post :create, :question => valid_attributes
-        assigns(:question).should be_a(Question)
-        assigns(:question).should be_persisted
+        post :create, :item_group => valid_attributes
+        assigns(:item_group).should be_a(ItemGroup)
+        assigns(:item_group).should be_persisted
       end
 
       it "redirects to the created question" do
-        post :create, :question => valid_attributes
-        response.should redirect_to(Question.last)
+        post :create, :item_group => valid_attributes
+        response.should redirect_to(ItemGroup.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved question as @question" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Question.any_instance.stub(:save).and_return(false)
-        post :create, :question => {}
-        assigns(:question).should be_a_new(Question)
+        ItemGroup.any_instance.stub(:save).and_return(false)
+        post :create, :item_group => {}
+        assigns(:item_group).should be_a_new(ItemGroup)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        Question.any_instance.stub(:save).and_return(false)
-        post :create, :question => {}
+        ItemGroup.any_instance.stub(:save).and_return(false)
+        post :create, :item_group => {}
         response.should render_template("new")
       end
     end
@@ -98,42 +100,42 @@ describe ItemGroupsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested question" do
-        question = Question.create! valid_attributes
+        question = ItemGroup.create! valid_attributes
         # Assuming there are no other questions in the database, this
-        # specifies that the Question created on the previous line
+        # specifies that the ItemGroup created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Question.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => question.id, :question => {'these' => 'params'}
+        ItemGroup.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        put :update, :id => question.id, :item_group => {'these' => 'params'}
       end
 
       it "assigns the requested question as @question" do
-        question = Question.create! valid_attributes
-        put :update, :id => question.id, :question => valid_attributes
-        assigns(:question).should eq(question)
+        question = ItemGroup.create! valid_attributes
+        put :update, :id => question.id, :item_group => valid_attributes
+        assigns(:item_group).should eq(question)
       end
 
       it "redirects to the question" do
-        question = Question.create! valid_attributes
-        put :update, :id => question.id, :question => valid_attributes
+        question = ItemGroup.create! valid_attributes
+        put :update, :id => question.id, :item_group => valid_attributes
         response.should redirect_to(question)
       end
     end
 
     describe "with invalid params" do
       it "assigns the question as @question" do
-        question = Question.create! valid_attributes
+        question = ItemGroup.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Question.any_instance.stub(:save).and_return(false)
-        put :update, :id => question.id.to_s, :question => {}
-        assigns(:question).should eq(question)
+        ItemGroup.any_instance.stub(:save).and_return(false)
+        put :update, :id => question.id.to_s, :item_group => {}
+        assigns(:item_group).should eq(question)
       end
 
       it "re-renders the 'edit' template" do
-        question = Question.create! valid_attributes
+        question = ItemGroup.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        Question.any_instance.stub(:save).and_return(false)
-        put :update, :id => question.id.to_s, :question => {}
+        ItemGroup.any_instance.stub(:save).and_return(false)
+        put :update, :id => question.id.to_s, :item_group => {}
         response.should render_template("edit")
       end
     end
@@ -141,14 +143,14 @@ describe ItemGroupsController do
 
   describe "DELETE destroy" do
     it "destroys the requested question" do
-      question = Question.create! valid_attributes
+      question = ItemGroup.create! valid_attributes
       expect {
         delete :destroy, :id => question.id.to_s
-      }.to change(Question, :count).by(-1)
+      }.to change(ItemGroup, :count).by(-1)
     end
 
     it "redirects to the questions list" do
-      question = Question.create! valid_attributes
+      question = ItemGroup.create! valid_attributes
       delete :destroy, :id => question.id.to_s
       response.should redirect_to(questions_url)
     end

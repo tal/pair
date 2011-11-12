@@ -10,6 +10,7 @@
 
 html {
   background-image: url(/assets/bgs/fabric.png);
+
 }
 
 body {
@@ -90,10 +91,11 @@ form .field {
 #page_logo {
   height: 66px;
   width: 232px;
-  background: url(/assets/verdic.png);
+  background: url(/assets/verdic.png) no-repeat bottom center;
   overflow: hidden;
   text-indent: -9999px;
-  margin: 40px auto 0;
+  margin: 0 auto;
+  padding-top: 40px;
 
   a {
     display: block;

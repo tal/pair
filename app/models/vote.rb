@@ -94,6 +94,10 @@ class Vote
     item_class.item_group_key
   end
 
+  def item_group
+    @item_group ||= item_class.item_group
+  end
+
   def item1
     vote_items[0].try(:id)
   end

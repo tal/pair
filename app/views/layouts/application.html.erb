@@ -11,39 +11,41 @@
   <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 
+  <!-- Open Graph Tags -->
   <%= og_tags %>
+  <!-- /Open Graph Tags -->
   <% if @item %>
 
   <% end %>
 </head>
-<body id="<%= controller_name  %>">
+<body id="<%= controller_name  %>" class="<%= action_name %>">
 
-<div id="member_bar">
-  <% if request.user %>
-    <a href="<%= logout_path %>" class="logout">Logout</a>
-  <% else %>
-    <a href="<%= login_path %>" class="login">Login</a>
-  <% end %>
-</div>
-
-
-<div id="content">
-  <div id="page_logo">
-    <%= link_to 'Verdic', root_path %>
+  <div id="member_bar">
+    <% if request.user %>
+      <%= link_to 'Logout', logout_path, class: 'logout' %>
+    <% else %>
+      <%= link_to 'Login', login_path, class: 'login' %>
+    <% end %>
   </div>
-  <% if flash[:notice] %>
-    <div class="flash notice">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="flash alert">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
 
-  <%= yield %>
-</div>
+
+  <div id="content">
+    <div id="page_logo">
+      <%= link_to 'Verdic', root_path %>
+    </div>
+    <% if flash[:notice] %>
+      <div class="flash notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="flash alert">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </div>
 
 <div id="fb-root"></div>
 <%= javascript_include_tag "application" %>

@@ -3,3 +3,7 @@
 <div class="actions">
   <%= link_to "Answer some questions", item_groups_path, class: 'action-button clickable' %>
 </div>
+
+<div class="sample_questions questions">
+  <%= render :partial => 'vote', :collection => @featured_votes %>
+</div>

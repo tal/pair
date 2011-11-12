@@ -1,4 +1,5 @@
 class VoteController < ItemGroupController
+  before_filter :checks_if_can_vote
 
   def new
     if @current_vote
@@ -20,8 +21,7 @@ class VoteController < ItemGroupController
 
     @item1 = @item_class.where(_id:params[:item1].to_i).first
     @item2 = @item_class.where(_id:params[:item2].to_i).first
-    logger.error "i1: #{@item1.inspect} i2: #{@item2.inspect}"
-    logger.error "item-class: #{@item_class.inspect}"
+
     if request.user
       @vote = request.user.find_vote(@item1,@item2)
     else
@@ -54,6 +54,15 @@ class VoteController < ItemGroupController
         end
         format.json { render json: @current_vote.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+private
+
+  def checks_if_can_vote
+    unless @item_group.user_can_vote(request.user)
+      flash[:error] = "You can't vote for this question"
+      redirect_to item_groups_path and return false
     end
   end
 

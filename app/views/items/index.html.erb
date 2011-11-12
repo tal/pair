@@ -1,25 +1,21 @@
 <h1><%= @item_group.description %></h1>
 
-<% if request.user %>
-<div class="actions">
-  <%= link_to 'Submit Your Own Answer', new_item_path, class: 'action-button answer clickable' %>
-  <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'action-button vote clickable' %>
-</div>
-<% end %>
-<div class='clearfix' style="text-align: center">
-  <%= link_to 'Submit Your Own Answer', new_item_path, class: 'big-button response' %>
-  <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'big-button vote' %>
-</div>
 <h2>Answers already submitted:</h2>
 <div class="item-list">
   <%= render partial: @items %>
 </div>
-<% if request.user.try(:admin?) %>
-<%= debug @item_group.item_class %>
-<%= debug @item_group.item_class.try(:count) %>
-<%= debug Mongoid.master[@item_group.key].count %>
-<%= debug @item_group.item_class.first %>
-<%= debug @item_group.item_class.last %>
-Master:<br/>
-<%= debug Mongoid.master %>
+
+<% if request.user %>
+<!--   <div class="actions">
+    <%= link_to 'Submit Your Own Answer', new_item_path, class: 'action-button answer clickable' %>
+    <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'action-button vote clickable' %>
+  </div> -->
+  <div class='clearfix' style="text-align: center">
+    <% if @item_group.user_can_submit(request.user) %>
+      <%= link_to 'Submit Your Own Answer', new_item_path, class: 'big-button response' %>
+    <% end %>
+    <% if @item_group.user_can_vote(request.user) %>
+      <%= link_to 'Vote!', new_vote_path(group_key: @item_group.key), class: 'big-button vote' %>
+    <% end %>
+  </div>
 <% end %>

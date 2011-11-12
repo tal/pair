@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe "Questions" do
+describe "ItemGroups" do
   describe "GET /questions" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get questions_path
+      get item_groups_path
       response.status.should be(200)
     end
   end

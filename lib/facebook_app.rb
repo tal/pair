@@ -2,7 +2,7 @@ class FacebookApp
   attr_accessor :id, :secret, :namespace
 
   def cookie_name
-    @cookies_name ||= :"fbs_#{id}"
+    @cookies_name ||= "fbs_#{id}"
   end
 
   def valid_params? session

@@ -39,7 +39,7 @@ module ApplicationHelper
   end
 
   def aditional_item_info item, opts={}, &blk
-    tag = begin
+    mytag = begin
       opts |= {}
       if item.youtube?
         u = URL.new("http://www.youtube.com/embed/#{item.detect_type[1]}")
@@ -54,31 +54,27 @@ module ApplicationHelper
       end
     end
 
-    if block_given?
+    if block_given? && mytag
+      yield(mytag)
+    else
+      mytag
     end
   end
 
-  # <meta property="fb:app_id"          content="<%= Rails.fb_app.id %>"> 
-  # <meta property="og:type"            content="<%= Rails.fb_app.namespace %>:answer">
-  # <meta property="og:url"             content="<%= item_url(@item, group_key: @item.group_key) %>">
-  # <meta property="og:title"           content="<%= @item.value %>">
-  # <meta property="og:description"     content="In answer to the question: <%= @item.item_group.description %>">
-  # <meta property="og:image"           content="<%= @item.fb_image %>">
-  # <meta property="verdicapp:question" content="<%= item_group_url(@item.item_group) %>">
   def og_tags
     props = {}
     props['fb:app_id'] = Rails.fb_app.id
 
-    if controller_name == "items" && @item
+    if controller_name == "items" && @item && !@item.new?
       props['og:type'] = Rails.fb_app.namespace + ':answer'
       props["og:url"] = item_url(@item, group_key: @item.group_key)
       props['og:title'] = @item.value
       props['og:description'] = "In asnwer to the question: "<<@item.item_group.description
       props['og:image'] = @item.fb_image
       props["#{Rails.fb_app.namespace }:question"] = item_group_url(@item.item_group)
-    elsif controller_name == 'item_groups' && @item_group
+    elsif controller_name == 'item_groups' && @item_group && !@item_group.new?
       props['og:type'] = Rails.fb_app.namespace + ':question'
-      props["og:url"] = item_group_url(@item_group)
+      props["og:url"] = url_for(@item_group)
       props['og:title'] = @item_group.description
       props['og:image'] = 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png'
     end

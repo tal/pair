@@ -2,7 +2,12 @@ class User
   include Mongoid::Document
   field :current_vote, type: Hash, default:{}
   embeds_one :fb_session
-  index 'fb_session.uid', unique: true, sparse: true
+  embeds_one :fb_info
+  index 'fb_info.uid', unique: true, sparse: true
+
+  before_save do
+    build_fb_info unless fb_info
+  end
 
   # TODO: Consider caching this in an instance variable
   def get_vote group_key
@@ -37,7 +42,7 @@ class User
 
   class << self
     def [] uid
-      where('fb_session.uid' => uid).first
+      where('fb_info.uid' => uid).first
     end
   end
 end

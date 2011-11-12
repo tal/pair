@@ -1,0 +1,15 @@
+<% @current_vote = @vote = vote %>
+<%= div_for vote do %>
+  <h2><%= vote.item_group.description %></h2>
+  <div class="items clearfix">
+    <%= render :partial => vote.items[0] %>
+    <%= render :partial => vote.items[1] %>
+  </div>
+
+  <% unless vote.completed? %>
+    <a class="vote_action skip" href="<%= vote_on_item_path(group_key: vote.item_group.key, item1: vote.item1, item2: vote.item2, choose: 'skip') %>">&mdash; SKIP &rarr;<div class="overlay"></div></a>
+  <% end %>
+  <% if vote.skipped? %>
+    Skipped!
+  <% end %>
+<% end %>

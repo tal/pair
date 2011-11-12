@@ -34,13 +34,13 @@
       <tr class="answer">
         <td class="row_header">Can Answer</td>
         <td class="radio"><%= f.radio_button :can_submit, 'me' %></td>
-        <td class="radio"><%= f.radio_button :can_submit, 'friends', disabled: 'disabled' %></td>
+        <td class="radio"><%= f.radio_button :can_submit, 'friend', disabled: 'disabled' %></td>
         <td class="radio"><%= f.radio_button :can_submit, 'everyone' %></td>
       </tr>
       <tr class="vote">
         <td class="row_header">Can Vote</td>
         <td class="radio"></td>
-        <td class="radio"><%= f.radio_button :can_vote, 'friends', disabled: 'disabled' %></td>
+        <td class="radio"><%= f.radio_button :can_vote, 'friend', disabled: 'disabled' %></td>
         <td class="radio"><%= f.radio_button :can_vote, 'everyone' %></td>
       </tr>
     </table>

@@ -24,6 +24,14 @@ describe Vote do
     v.errors.should have(1).error
   end
 
+  it "should get a dummy vote" do
+    v = @ig.dummy_vote
+    v.should be_a Vote
+    v.should be_new
+    v.user = User.new
+    v.should be_valid
+  end
+
   it "should error if only one item added" do
     v = @ig.new_vote
     v.user = User.new
