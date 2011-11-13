@@ -42,8 +42,6 @@ group :test, :development do
 end
 
 gem 'uuidtools'
-gem 'pg'
-gem 'sequel'
 gem 'redis'
 gem 'redis-namespace'
 gem "mongoid", "~> 2.2.0"
