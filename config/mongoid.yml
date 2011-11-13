@@ -7,7 +7,9 @@ test:
   database: pair_test
 
 production:
-  uri: <%= ENV['MONGOHQ_URL'] %>
+  # uri: <%= ENV['MONGOHQ_URL'] %>
+  host: localhost
+  database: pair_production
 
 # set these environment variables on your prod server
 # production:
