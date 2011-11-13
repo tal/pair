@@ -1,4 +1,4 @@
-DB = Sequel.connect('postgres://localhost/pair_development')
+# DB = Sequel.connect('postgres://localhost/pair_development')
 REDIS = Redis::Namespace.new(:pair_test, :redis => Redis.new)
 
 Pair::Application.configure do

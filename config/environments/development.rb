@@ -1,4 +1,3 @@
-DB = Sequel.connect('postgres://localhost/pair_development')
 REDIS = Redis::Namespace.new(:pair_dev, :redis => Redis.new)
 
 if defined?(Footnotes)
