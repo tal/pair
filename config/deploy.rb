@@ -16,9 +16,19 @@ role :app, "72.14.179.30"
 # these http://github.com/rails/irs_process_scripts
 
 namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
+
+  desc 'Start app from cold'
+  task :start, :roles => :app, :except => { :no_release => true } do
+    run "cd #{current_path} && unicorn_rails -c #{current_path}/config/unicorn.rb -E production -D"
+  end
+
+  desc 'Stop app'
+  task :stop, :roles => :app, :except => { :no_release => true } do
+    run "kill -QUIT `cat #{shared_path}/pids/unicron.pid`"
+  end
+
+  desc 'Restart app'
   task :restart, :roles => :app, :except => { :no_release => true } do
-    
+    run "kill -USR2 `cat #{shared_path}/pids/unicron.pid`"
   end
 end
