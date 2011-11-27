@@ -31,4 +31,6 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "kill -USR2 `cat #{shared_path}/pids/unicorn.pid`"
   end
+
+  task :migrate do ; end
 end
