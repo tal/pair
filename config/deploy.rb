@@ -24,11 +24,11 @@ namespace :deploy do
 
   desc 'Stop app'
   task :stop, :roles => :app, :except => { :no_release => true } do
-    run "kill -QUIT `cat #{shared_path}/pids/unicron.pid`"
+    run "kill -QUIT `cat #{shared_path}/pids/unicorn.pid`"
   end
 
   desc 'Restart app'
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "kill -USR2 `cat #{shared_path}/pids/unicron.pid`"
+    run "kill -USR2 `cat #{shared_path}/pids/unicorn.pid`"
   end
 end
