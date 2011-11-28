@@ -14,8 +14,6 @@ private
     str = cookies[Rails.fb_app.cookie_name].try(:gsub,"\"",'')
     fb_params =  str ? URL::ParamsHash.from_string(str) : {}
 
-    raise Rails.fb_app.valid_params?(fb_params).to_s + "\n"*4 + fb_params.inspect
-
     if Rails.fb_app.valid_params?(fb_params)
       u = User[fb_params[:uid]]
     elsif fb_params[:uid]
