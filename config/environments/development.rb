@@ -1,5 +1,9 @@
 REDIS = Redis::Namespace.new(:pair_dev, :redis => Redis.new)
 
+Resque.redis = REDIS
+
+Resque.redis.namespace = 'resque'
+
 if defined?(Footnotes)
   Footnotes.run! # first of all
 

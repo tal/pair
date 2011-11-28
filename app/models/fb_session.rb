@@ -42,6 +42,14 @@ class FbSession
     "fb:#{uid}:friends"
   end
 
+  def expires_at
+    Time.at(expires)
+  end
+
+  def expired?
+    expires_at < Time.now
+  end
+
   field :uid
   field :access_token
   field :expires, type: Integer

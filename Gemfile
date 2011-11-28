@@ -39,9 +39,9 @@ end
 
 gem 'uuidtools'
 gem 'redis'
-gem 'redis-namespace'
 gem "mongoid", "~> 2.2.0"
 gem "bson_ext", "~> 1.3"
 gem 'url'
 gem 'typed-matcher'
 gem 'redis-store'
+gem "resque", "~> 1.19.0"

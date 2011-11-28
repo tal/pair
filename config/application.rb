@@ -53,6 +53,10 @@ module Pair
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    config.autoload_paths += %W{
+      #{config.root}/app/processors
+    }
+
     Dir["#{config.root}/lib/ext/*.rb"].each do |f|
       require f
     end

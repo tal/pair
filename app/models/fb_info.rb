@@ -9,7 +9,7 @@ class FbInfo
   before_save :update_uid
 
   def friends_with user
-    return unless user.fb_info.uid
+    return unless user.andand.fb_info.andand.uid
 
     friend_ids.include? user.fb_info.uid
   end

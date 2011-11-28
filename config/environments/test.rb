@@ -1,6 +1,10 @@
 # DB = Sequel.connect('postgres://localhost/pair_development')
 REDIS = Redis::Namespace.new(:pair_test, :redis => Redis.new)
 
+Resque.redis = REDIS
+
+Resque.redis.namespace = 'resque'
+
 Pair::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

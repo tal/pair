@@ -2,6 +2,10 @@
 # REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 REDIS = Redis::Namespace.new(:pair_production, :redis => Redis.new)
 
+Resque.redis = REDIS
+
+Resque.redis.namespace = 'resque'
+
 Pair::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

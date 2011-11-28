@@ -43,6 +43,7 @@ class User
 
   class << self
     def [] uid
+      uid = uid.to_s if uid.is_a?(Integer)
       where('fb_info.uid' => uid).first
     end
   end

@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Pair::Application.routes.draw do
   resources :questions, as: :item_groups, controller: :item_groups do
     collection do
@@ -9,6 +11,8 @@ Pair::Application.routes.draw do
   match '/logout' => 'user#logout'
 
   root :to => 'welcome#index'
+
+  mount Resque::Server.new, :at => "/resque"
 
   # Keep this last
   scope ':group_key' do
@@ -27,4 +31,5 @@ Pair::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+
 end
