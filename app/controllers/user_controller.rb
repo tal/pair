@@ -7,6 +7,7 @@ class UserController < ApplicationController
         u = User.new
       end
       u.fb_session = fbs
+      u.fb_info.uid = fbs.uid
     end
 
     if u && u.save
