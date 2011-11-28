@@ -7,6 +7,7 @@ class User
 
   before_save do
     build_fb_info unless fb_info
+    fb_info.uid = fb_session.andand.uid
   end
 
   # TODO: Consider caching this in an instance variable
